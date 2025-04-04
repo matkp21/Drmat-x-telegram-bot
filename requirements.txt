@@ -10,4 +10,6 @@ openai-whisper              # Voice-to-text transcription (upgrade to latest)
 transformers==4.35.0        # Pretrained Transformer-based ML models
 diffusers==0.23.0           # Stable Diffusion for image/avatar generation
 torch==2.1.0                # PyTorch ML framework (CPU/GPU support)
+python-telegram-bot==20.3
+aiofiles
 
