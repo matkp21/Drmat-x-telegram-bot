@@ -1,15 +1,10 @@
-python-telegram-bot==20.3
-googletrans==4.0.0-rc1
-aiofiles
-requirements.txt
-telegram-python-bot==13.15  # Telegram bot framework
-requests==2.31.0            # HTTP requests for APIs
-graphviz==0.20.1            # Flowchart and graph generation
-cairosvg==2.7.1             # SVG to PNG/PDF conversion
-openai-whisper              # Voice-to-text transcription (upgrade to latest)
-transformers==4.35.0        # Pretrained Transformer-based ML models
-diffusers==0.23.0           # Stable Diffusion for image/avatar generation
-torch==2.1.0                # PyTorch ML framework (CPU/GPU support)
-python-telegram-bot==20.3
-aiofiles
-
+python-telegram-bot==20.3       # Telegram bot framework
+googletrans==4.0.0-rc1          # Translation API
+aiofiles                        # Async file handling
+requests==2.31.0                # HTTP requests for APIs
+graphviz==0.20.1                # Flowchart and graph generation
+cairosvg==2.7.1                 # SVG to PNG/PDF conversion
+openai-whisper                  # Voice-to-text transcription
+transformers==4.35.0            # Pretrained ML models (text/image)
+diffusers==0.23.0               # Stable Diffusion image/avatar generation
+torch==2.1.0                    # PyTorch ML framework (CPU/GPU support)
