@@ -1,31 +1,33 @@
-from telegram.ext import Application, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from handlers import start, medical_query, voice_handler, track_handler, trend_handler, consult_handler, location_handler, text_handler, button
+from telegram.ext import Application
+import os
 
-async def error_handler(update, context):
-    """Log and handle errors in the bot."""
-    print(f"Update {update} caused error {context.error}")
+async def start(update, context):
+    await update.message.reply_text("👩‍⚕️ Hi! I'm DrMat, your AI Medical Assistant!")
 
+# Webhook setup
 def main():
-    import os
-    BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+    # Telegram Bot Token from environment variable
+    BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
     if not BOT_TOKEN:
         raise ValueError("Telegram Bot Token not found. Set TELEGRAM_BOT_TOKEN as an environment variable.")
 
-    application = Application.builder().token(BOT_TOKEN).build()
+    # Set up bot
+    app = Application.builder().token(BOT_TOKEN).build()
 
-    # Define handlers
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(MessageHandler(Filters.text & ~Filters.command, text_handler))
-    application.add_handler(MessageHandler(Filters.voice, voice_handler))
-    application.add_handler(CommandHandler("track", track_handler))
-    application.add_handler(CommandHandler("trend", trend_handler))
-    application.add_handler(CommandHandler("consult", consult_handler))
-    application.add_handler(MessageHandler(Filters.location, location_handler))
-    application.add_handler(CallbackQueryHandler(button))
-    application.add_error_handler(error_handler)
+    # Add command handler
+    app.add_handler(CommandHandler("start", start))
 
-    # Run the bot
-    application.run_polling()
+    # Webhook settings
+    PORT = int(os.getenv('PORT', 8443))  # Default port is 8443
+    WEBHOOK_URL = os.getenv('WEBHOOK_URL', 'https://<your-app-name>.repl.co')  # Replace with your Replit URL
+
+    # Run bot with webhook
+    app.run_webhook(
+        listen="0.0.0.0",  # Listen on all available IPs
+        port=PORT,         # Port to listen on
+        url_path=BOT_TOKEN,  
+        webhook_url=f"{WEBHOOK_URL}/{BOT_TOKEN}"  # Full webhook endpoint
+    )
 
 if __name__ == "__main__":
     main()
